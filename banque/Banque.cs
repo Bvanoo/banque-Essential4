@@ -21,14 +21,39 @@
         }
 
         public string Nom { get; set; } = null!;
+
         public void Ajouter(Compte compte)
         {
+            if (compte == null)
+            {
+                Console.WriteLine("Le compte ne peut pas être null.");
+                return;
+            }
 
+            if (this[compte.Numero] != null)
+            {
+                Console.WriteLine($"Le compte {compte.Numero} existe déjà.");
+                return;
+            }
+
+            comptes.Add(compte);
+            Console.WriteLine($"Compte {compte.Numero} ajouté avec succès.");
         }
+
         public void Supprimer(string numero)
         {
+            Compte? compte = this[numero];
 
+            if (compte == null)
+            {
+                Console.WriteLine($"Le compte {numero} n'existe pas.");
+                return;
+            }
+
+            comptes.Remove(compte);
+            Console.WriteLine($"Compte {numero} supprimé avec succès.");
         }
+
         public double AvoirDesComptes(Personne titulaire)
         {
             double total = 0;
@@ -43,32 +68,3 @@
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-//Classe animal avec 2 champs, Nom, une methode Cri() en virtuelle
-//Classe enfant (par exemple chien) qui va avoir une methode qui ecrase le cri pour mettre le cri de l'animal en question
-//Faite 3 classe enfant et afficher le cri dans la console 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

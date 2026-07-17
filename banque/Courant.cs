@@ -32,10 +32,34 @@
 
         public override void Retrait(double Montant)
         {
+            if (Montant <= 0)
+            {
+                Console.WriteLine("Le montant du retrait doit être positif.");
+                return;
+            }
+
+            double disponible = Solde + LigneDeCredit;
+
+            if (Montant > disponible)
+            {
+                Console.WriteLine($"Solde insuffisant. Disponible : {disponible}");
+                return;
+            }
+
+            ModifierSolde(Solde - Montant);
+            Console.WriteLine($"Retrait de {Montant}€ effectué. Nouveau solde : {Solde}");
         }
 
         public override void Depot(double Montant)
         {
+            if (Montant <= 0)
+            {
+                Console.WriteLine("Le montant du dépôt doit être positif.");
+                return;
+            }
+
+            ModifierSolde(Solde + Montant);
+            Console.WriteLine($"Dépôt de {Montant}€ effectué. Nouveau solde : {Solde}");
         }
 
         public static double operator +(Courant c1, Courant c2)
